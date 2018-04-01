@@ -1,0 +1,5 @@
+DB_DATABASE=kakolisa_multiauth
+
+DB_USERNAME=kakolisa_multiauth
+
+DB_PASSWORD=30/*-+@#feb$%^
