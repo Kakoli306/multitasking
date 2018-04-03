@@ -1,5 +1,9 @@
 @extends('frontEnd.layouts.master')
 
+@section('content')
+    Purchase
+@endsection
+
 @section('features')
     <!-- Page Features -->
 
@@ -40,10 +44,11 @@
     <h3 class="panel-title">Please sign up for <small>Purchase</small></h3>
 
 
-    <form class="form-horizontal" method="POST" action="{{ route('add-purchase')}}">
+    <form class="form-horizontal" method="POST" action='{{url("purchase/add/{$post->id}")}}'>
                    {{ csrf_field() }}
 
-        <input hiddden name=post_id value={{$id}}>
+
+        <input type="hidden" name="post_id" value="{{ $id }}">
 
         <div class="form-group{{ $errors->has('first_name') ? ' has-error' : '' }}">
         <label for="first_name" class="col-md-4 control-label">First name</label>
@@ -123,7 +128,7 @@
             <ul>
 
 
-                <li><a href="{{ route('contact.purchase', ['id'=>$post->id]) }}">Registered({{$registeruser}})</a> </li>
+
 
             </ul>
         </div>

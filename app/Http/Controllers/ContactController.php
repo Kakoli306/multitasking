@@ -11,17 +11,20 @@ class ContactController extends Controller
     public function index(){
         return view('frontEnd.layouts.contact');
     }
-    public function new(){
-        return view('frontEnd.layouts.guide');
+    public function new($post_id){
+
+        $posts = Post::all();
+        $purchases = Purchases::find($post_id);
+        return view('frontEnd.layouts.guide',['posts'=> $posts, 'id'=>$post_id, 'purchases'=> $purchases]);
     }
     public function purchase($post_id)
     {
         $posts = Post::where('id', '=',$post_id)->get();
-        $registerPost = Post::find($post_id);
-        $registeruser = Purchases::where(['post_id' => $registerPost->id ])->count();
-        return view('posts.purchase',['posts'=> $posts, 'id'=>$post_id, 'registeruser' => $registeruser ]);
+        //$registerPost = Post::find($post_id);
+        //$registeruser = Purchases::where(['post_id' => $registerPost->id ])->count();
+        return view('posts.purchase',['posts'=> $posts, 'id'=>$post_id ]);
     }
-    public function adding( Request $request){
+    public function adding( Request $request,$post_id){
 
             // return $request->input('post_title');
             $this->validate($request, [
@@ -42,12 +45,11 @@ class ContactController extends Controller
         $purchase->number = $request->number;
         $purchase->address = $request->address;
         $purchase->permission_status = 0;
-        $purchase->post_id = $request->post_id;
-
-
+        $purchase->post_id = $post_id;
         $purchase->save();
 
-        return redirect("purchase/$request->post_id")->with('message', 'Purchase info saved ');
+       // return redirect("guide/$request->post_id")->with('message', 'Purchase info saved ');
+        return redirect("/purchase/{$post_id}")->with('message', 'Purchase info saved ');
     }
 
     public function publishedPurchase($id){

@@ -26,9 +26,13 @@ Route::prefix('admin')->group(function() {
   Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
   Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');
   Route::get('/', 'AdminController@index')->name('admin.dashboard');
+    Route::get('/logout', 'Auth\AdminLoginController@logout')->name('admin.logout');
+
     Route::get('/permission', 'AdminController@permission')->name('admin.permission');
     Route::get('/accounts', 'AdminController@accounts')->name('accounts-admin');
-  Route::get('/logout', 'Auth\AdminLoginController@logout')->name('admin.logout');
+    Route::get('/register', 'AdminController@newregister')->name('new-register');
+
+
 
     // Password reset routes
     Route::post('/password/email', 'Auth\AdminForgotPasswordController@sendResetLinkEmail')->name('admin.password.email');
@@ -45,10 +49,15 @@ Route::get('/view/{id}', 'PostController@view');
 
 //Route::get('/user/register/{id}','WelcomeController@registerUser');
 
+Route::group(['prefix'=>'users'], function (){
+    Route::get('/welcome/{id}','WelcomeController@welcome')->name('welcome-register');
+    Route::get('/dismiss/{id}','WelcomeController@dismiss')->name('dismiss-register');
+});
+
 Route::group(['prefix'=>'purchase'], function() {
     Route::get('/{id}', 'ContactController@purchase')->name('contact.purchase');
 
-    Route::post('/add', 'ContactController@adding')->name('add-purchase');
+    Route::post('/add/{id}', 'ContactController@adding')->name('add-purchase');
 
     Route::get('/published/{id}', 'ContactController@publishedPurchase')->name('contact.published');
     Route::get('/unpublished/{id}', 'ContactController@unpublishedPurchase')->name('contact.unpublished');

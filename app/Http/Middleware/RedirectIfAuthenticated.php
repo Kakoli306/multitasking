@@ -25,7 +25,7 @@ class RedirectIfAuthenticated
            break;
 
          default:
-           if (Auth::guard($guard)->check()) {
+           if (Auth::guard($guard)->check() && (Auth::guard($guard)->register_status > 1)) {
                return redirect('/home');
            }
            break;

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 use App\Post;
 use App\Purchases;
@@ -33,7 +34,10 @@ class AdminController extends Controller
 
     }
     public function permission(){
-        $purchases = Purchases::all();
+        $purchases = DB::table('purchases')
+            ->where('permission_status', 0)
+            ->get();
+        //$purchases = Purchases::all();
         return view ('newhome',['purchases' =>$purchases]);
     }
 
@@ -41,5 +45,14 @@ class AdminController extends Controller
 
       $posts = Post::all();
         return view('posts.accounts',['posts'=> $posts]);
+    }
+
+    public function newregister(){
+
+        $user = DB::table('users')
+            ->where('register_status',0)
+            ->get();
+        //$user = User::all();
+        return view('newregister',['users' => $user]);
     }
 }

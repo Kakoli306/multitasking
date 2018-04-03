@@ -51,7 +51,7 @@
                 <img class="card-img-top" src="{{$post->post_image}}" alt="" width="200" height="200">
                 <div class="card-body">
                     <h4 class="card-title">{{$post->post_title}}</h4>
-                    <p class="card-text">{{$post->post_body}}</p>
+                    <p class="card-text">{{ substr($post->post_body,0,100)}}</p>
                     <p class="card-text">{{$post->amount}}</p>
                 </div>
                 <div class="card-footer">

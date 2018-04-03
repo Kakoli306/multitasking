@@ -28,6 +28,10 @@
                     <a href="{{ route('accounts-admin') }}" class="btn btn-warning btn-sm">
                        Accounts
                     </a>
+
+                    <a href="{{ route('new-register') }}" class="btn btn-primary">
+                        Register
+                    </a>
                 </div>
             </div>
         </div>
